@@ -5,10 +5,14 @@ class Board
 
   def initialize
     @positions = (1..9).to_a
+    @next_move = 'X'
   end
 
   def mark(position, sign)
-    @positions[position - 1] = sign if valid?(sign)
+    if valid?(position, sign)
+      @next_move = alter_sign(sign)
+      @positions[position - 1] = sign
+    end
   end
 
   def possible_moves
@@ -30,7 +34,11 @@ class Board
   end
 
   private
-    def valid?(sign)
-      SIGNS.include?(sign)
+    def valid?(position, sign)
+      possible_moves.include?(position) && SIGNS.include?(sign) && @next_move == sign
+    end
+
+    def alter_sign(sign)
+      ('X' == sign)? 'O' : 'X'
     end
 end

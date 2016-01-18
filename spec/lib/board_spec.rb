@@ -16,4 +16,22 @@ describe Board do
     board.mark(4, 'O')
     expect(board.possible_moves).to eql(positions - [4, 7])
   end
+
+  it 'only starts with X' do
+    board.mark(4, 'X')
+    expect(board.possible_moves).to eql(positions - [4])
+  end
+
+  it 'does not start with O' do
+    board.mark(4, 'O')
+    expect(board.possible_moves).to eql(positions)
+  end
+
+  it 'does not accept repeated move' do
+    board.mark(4, 'X')
+    board.mark(3, 'O')
+    board.mark(8, 'O')
+    expect(board.possible_moves).to eql(positions - [3, 4])
+  end
+
 end
