@@ -19,14 +19,11 @@ class Board
     output = []
     blank_line = '     |     |'
     flat_line = '_____|_____|_____'
-    @positions.each_slice(3).to_a.each_with_index do |a, i|
+
+    @positions.each_slice(3).each_with_index do |a, i|
       output << blank_line
       output << "  #{a.join('  |  ')}  "
-      if i < 2
-        output << flat_line
-      else
-        output << blank_line
-      end
+      output << ((i < 2)? flat_line : blank_line)
     end
 
     output.join("\n")
