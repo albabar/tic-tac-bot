@@ -16,6 +16,9 @@ class Game
     board = Board.new
 
     until board.game_over?
+      puts ''
+      puts board
+      puts ''
       @next_player.take_move(board)
       alter_player
     end
