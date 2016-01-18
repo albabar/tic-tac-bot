@@ -9,6 +9,8 @@ class Game
     sign = ask_sign
     @human = Human.new(name, sign)
     @devil = Devil.new('Mini', alter_sign(sign))
+
+    @color_print_available = check_for_colorize
   end
 
   def play
@@ -17,7 +19,7 @@ class Game
 
     until board.game_over?
       puts ''
-      puts board
+      color_print board
       puts ''
       @next_player.take_move(board)
       alter_player
@@ -76,5 +78,19 @@ class Game
       else
         puts "I don't know!"
       end
+    end
+
+    def check_for_colorize
+      Gem::Specification.find_by_name('colorize')
+      require 'colorize'
+      true
+    rescue
+      false
+    end
+
+    def color_print(board)
+      puts board.to_s
+        .gsub('X', 'X'.colorize(:blue))
+        .gsub('O', 'O'.colorize(:green))
     end
 end
