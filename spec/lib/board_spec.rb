@@ -34,4 +34,8 @@ describe Board do
     expect(board.possible_moves).to eql(positions - [3, 4])
   end
 
+  describe '#allow?' do
+    it { expect(board.allow?(7)).to be true }
+    it { expect(board.allow?(12)).to be false }
+  end
 end

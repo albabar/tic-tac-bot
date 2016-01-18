@@ -19,6 +19,10 @@ class Board
     @positions - SIGNS
   end
 
+  def allow?(move)
+    possible_moves.include?(move)
+  end
+
   def to_s
     output = []
     blank_line = '     |     |'
@@ -35,7 +39,7 @@ class Board
 
   private
     def valid?(position, sign)
-      possible_moves.include?(position) && SIGNS.include?(sign) && @next_move == sign
+      allow?(position) && SIGNS.include?(sign) && @next_move == sign
     end
 
     def alter_sign(sign)
