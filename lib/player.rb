@@ -7,8 +7,8 @@ class Player
     raise ArgumentError if invalid_sign?(sign)
   end
 
-  def take_move(moves)
-    moves.sample
+  def take_move(board)
+    board.mark board.possible_moves.sample, sign
   end
 
   private

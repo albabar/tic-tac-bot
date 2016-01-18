@@ -13,9 +13,9 @@ describe Player do
     expect{Player.new('Rb', 'L')}.to raise_error(ArgumentError)
   end
 
-  it 'choose a move based on free slots' do
+  it 'take a move based on free slots' do
     board = Board.new
-    expect((1..9).to_a).to include(player.take_move(board.possible_moves))
+    expect(player.take_move(board)).to eql(player.sign)
   end
 
 end
