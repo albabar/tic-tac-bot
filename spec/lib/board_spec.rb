@@ -38,4 +38,28 @@ describe Board do
     it { expect(board.allow?(7)).to be true }
     it { expect(board.allow?(12)).to be false }
   end
+
+  describe '#full?' do
+    it do
+      9.times do |i|
+        board.mark(i+1, 'X')
+        board.mark(i+2, 'O')
+      end
+
+      expect(board.full?).to be true
+      expect(board.game_over?).to be true
+      expect(board.drawn?).to be true
+    end
+  end
+
+  it 'should win for X' do
+    board.mark(1, 'X')
+    board.mark(4, 'O')
+    board.mark(2, 'X')
+    board.mark(5, 'O')
+    board.mark(3, 'X')
+
+    expect(board.has_won?('X')).to be true
+    expect(board.game_over?).to be true
+  end
 end

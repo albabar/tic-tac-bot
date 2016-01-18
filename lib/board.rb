@@ -2,6 +2,9 @@ class Board
 
   attr_reader :positions
   SIGNS = ['X', 'O']
+  WIN_LINES = [[1,2,3],[4,5,6],[7,8,9],
+               [1,4,7],[2,5,8],[3,6,9],
+               [1,5,9],[3,5,7]]
 
   def initialize
     @positions = (1..9).to_a
@@ -21,6 +24,24 @@ class Board
 
   def allow?(move)
     possible_moves.include?(move)
+  end
+
+  def full?
+    possible_moves.empty?
+  end
+
+  def has_won?(sign)
+    WIN_LINES.any? do |line|
+      line.all? {|position| @positions[position-1] == sign}
+    end
+  end
+
+  def game_over?
+    full? || has_won?('X') || has_won?('O')
+  end
+
+  def drawn?
+    full? && (!has_won?('X') || !has_won?('O'))
   end
 
   def to_s
