@@ -69,6 +69,8 @@ class Game
     end
 
     def announce_result(board, player1, player2)
+      puts ''
+      color_print(board)
       if board.drawn?
         puts 'Drawn'
       elsif board.has_won?(player1.sign)
