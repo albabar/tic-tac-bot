@@ -15,4 +15,9 @@ class Player
     def invalid_sign?(sign)
       not Board::SIGNS.include?(sign)
     end
+
+    def opponent_sign(sign = nil)
+      sign = self.sign if sign.nil?
+      (Board::SIGNS - [sign])[0]
+    end
 end
