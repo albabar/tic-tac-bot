@@ -62,4 +62,12 @@ describe Board do
     expect(board.has_won?('X')).to be true
     expect(board.game_over?).to be true
   end
+
+  describe '#dup' do
+    it 'makes deep copy of board' do
+      board2 = board.dup
+      board2.mark 7, 'X'
+      expect(board.possible_moves).not_to eq(board2.possible_moves)
+    end
+  end
 end

@@ -1,6 +1,6 @@
 class Board
 
-  attr_reader :positions
+  attr_reader :positions, :next_move
   SIGNS = ['X', 'O']
   WIN_LINES = [[1,2,3],[4,5,6],[7,8,9],
                [1,4,7],[2,5,8],[3,6,9],
@@ -28,6 +28,10 @@ class Board
 
   def full?
     possible_moves.empty?
+  end
+
+  def first_move?(sign)
+    positions.count(sign) == 0
   end
 
   def has_won?(sign)
@@ -65,5 +69,10 @@ class Board
 
     def alter_sign(sign)
       ('X' == sign)? 'O' : 'X'
+    end
+
+    def initialize_dup(other)
+      super(other)
+      @positions = other.positions.dup
     end
 end
