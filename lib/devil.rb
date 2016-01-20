@@ -6,7 +6,7 @@ class Devil < Player
     15.times{print '.'; sleep(0.1)}
 
     if board.first_move?(sign) #Improve initial thinking
-      board.mark board.possible_moves.select(&:odd?).sample, sign
+      board.mark (board.possible_moves & board.diagonals.flatten).sample, sign
     else
       board.mark think(board), sign
     end
