@@ -13,9 +13,9 @@ class Game
     @color_print_available = check_for_colorize
   end
 
-  def play
+  def play(format = 3)
     set_first_player
-    board = Board.new
+    board = Board.new(format)
 
     until board.game_over?
       puts ''
