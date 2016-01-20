@@ -83,16 +83,20 @@ class Game
     end
 
     def check_for_colorize
-      Gem::Specification.find_by_name('colorize')
-      require 'colorize'
-      true
-    rescue
-      false
+      begin
+        require 'colorize' if gem 'colorize'
+      rescue Gem::LoadError
+        false
+      end
     end
 
     def color_print(board)
-      puts board.to_s
-        .gsub('X', 'X'.colorize(:blue))
-        .gsub('O', 'O'.colorize(:green))
+      if @color_print_available
+        puts board.to_s
+          .gsub('X', 'X'.colorize(:blue))
+          .gsub('O', 'O'.colorize(:green))
+      else
+        puts board
+      end
     end
 end
