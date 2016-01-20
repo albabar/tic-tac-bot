@@ -1,17 +1,16 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/game'
-format = ARGV[0] || 3
 
-puts ['3: 3x3', '4: 4x4', '5: 5x5']
-print 'Which format you wanna play? '
+#puts ['3: 3x3', '4: 4x4', '5: 5x5']
+#print 'Which format you wanna play? '
 
-format = gets.chomp.to_i
-format = 3 if format == 0
+#format = gets.chomp.to_i
+#format = 3 if format == 0
 
-unless [3, 4, 5].include? format
-  puts 'Wrong you dumb ass! Try again!!'
-  exit
-end
+#unless [3, 4, 5].include? format
+#  puts 'Wrong you dumb ass! Try again!!'
+#  exit
+#end
 
-Game.new.play(format)
+Game.new.play(3)
