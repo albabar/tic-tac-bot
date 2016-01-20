@@ -50,13 +50,16 @@ class Board
 
   def to_s
     output = []
-    blank_line = '     |     |'
-    flat_line = '_____|_____|_____'
+    max_length = @positions.size.to_s.size
+    single_cell = '     ' + ' ' * (max_length -1)
+    blank_line = ([single_cell] * format).join('|')
+    flat_line = blank_line.gsub(' ', '_')
+    last_index = format - 1
 
-    @positions.each_slice(3).each_with_index do |a, i|
+    rows.each_with_index do |a, i|
       output << blank_line
-      output << "  #{a.join('  |  ')}  "
-      output << ((i < 2)? flat_line : blank_line)
+      output << "  #{a.map{|n| n.to_s.rjust(max_length, ' ')}.join('  |  ')}  "
+      output << ((i < last_index)? flat_line : blank_line)
     end
 
     output.join("\n")
@@ -77,11 +80,14 @@ class Board
       ('X' == sign)? 'O' : 'X'
     end
 
-    def calculate_winning_lines
-      cols = @positions.each_slice(format).to_a
-      rows = cols[0].map{|n| ([n]*format).map.with_index{|x, i| n+(i*format)}}
+    def rows
+      @positions.each_slice(format).to_a
+    end
 
-      cols + rows + diagonals
+    def calculate_winning_lines
+      cols = rows[0].map{|n| ([n]*format).map.with_index{|x, i| n+(i*format)}}
+
+      rows + cols + diagonals
     end
 
 
