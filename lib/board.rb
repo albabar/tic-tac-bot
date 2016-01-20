@@ -1,14 +1,14 @@
 class Board
 
-  attr_reader :positions, :next_move
+  attr_reader :positions, :next_move, :format, :winning_lines
   SIGNS = ['X', 'O']
-  WIN_LINES = [[1,2,3],[4,5,6],[7,8,9],
-               [1,4,7],[2,5,8],[3,6,9],
-               [1,5,9],[3,5,7]]
 
-  def initialize
-    @positions = (1..9).to_a
+  def initialize(format = 3)
+    @format = format
+    @positions = (1..(format**2)).to_a
     @next_move = 'X'
+
+    @winning_lines = calculate_winning_lines
   end
 
   def mark(position, sign)
@@ -35,7 +35,7 @@ class Board
   end
 
   def has_won?(sign)
-    WIN_LINES.any? do |line|
+    winning_lines.any? do |line|
       line.all? {|position| @positions[position-1] == sign}
     end
   end
@@ -62,6 +62,12 @@ class Board
     output.join("\n")
   end
 
+  def diagonals
+    d1 = ([1] * format).map.with_index{|n, i| 1+(i*(1+format))}
+    d2 = ([format] * format).map.with_index{|n, i| format+(i*(format-1))}
+    [d1, d2]
+  end
+
   private
     def valid?(position, sign)
       allow?(position) && SIGNS.include?(sign) && @next_move == sign
@@ -70,6 +76,14 @@ class Board
     def alter_sign(sign)
       ('X' == sign)? 'O' : 'X'
     end
+
+    def calculate_winning_lines
+      cols = @positions.each_slice(format).to_a
+      rows = cols[0].map{|n| ([n]*format).map.with_index{|x, i| n+(i*format)}}
+
+      cols + rows + diagonals
+    end
+
 
     def initialize_dup(other)
       super(other)

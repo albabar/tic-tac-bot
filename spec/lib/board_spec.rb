@@ -70,4 +70,27 @@ describe Board do
       expect(board.possible_moves).not_to eq(board2.possible_moves)
     end
   end
+
+  describe '#winning_lines' do
+    it 'generates winning lines dynamically' do
+      expect(board.winning_lines).to eq([[1,2,3],[4,5,6],[7,8,9],
+                                                [1,4,7],[2,5,8],[3,6,9],
+                                                [1,5,9],[3,5,7]])
+    end
+
+    it 'generate proper winning sequence for 4x4 board as well' do
+      expect(Board.new(4).winning_lines).to eq([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16],
+                                                    [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16],
+                                                    [1, 6, 11, 16], [4, 7, 10, 13]])
+    end
+
+
+    it 'generate proper winning sequence for 5x5 board as well' do
+      expect(Board.new(5).winning_lines).to eq([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20],
+                                                       [21, 22, 23, 24, 25], [1, 6, 11, 16, 21], [2, 7, 12, 17, 22], [3, 8, 13, 18, 23], 
+                                                       [4, 9, 14, 19, 24], [5, 10, 15, 20, 25], [1, 7, 13, 19, 25], [5, 9, 13, 17, 21]
+                                                    ])
+    end
+
+  end
 end
